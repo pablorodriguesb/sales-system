@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Cadastro de Estado</title>
+
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet"
@@ -13,10 +13,12 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
 
-    <!-- Font Awesome - Versão boa com ícones sólidos -->
-    <!-- Font Awesome via CDN oficial -->
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
+
+    <title>Lista de Estados</title>
 </head>
 
 <body>
@@ -50,7 +52,7 @@
 
 <div class="container mt-4">
 
-    <table class="table">
+    <table class="table" id="tabela">
         <thead>
         <tr>
             <th>ID</th>
@@ -60,14 +62,13 @@
         </tr>
         </thead>
 
-        <tbody th:each="estado : ${listarEstados}">
-        <tr>
+        <tbody>
+        <tr th:each="estado : ${listarEstados}">
             <td th:text="${estado.id}">1</td>
             <td th:text="${estado.nome}">Exemplo</td>
             <td th:text="${estado.sigla}">XX</td>
             <td class="d-flex gap-1">
-
-                <!-- Botão de editar (sem mudanças) -->
+                <!-- Botão de editar -->
                 <a th:href="@{'/editarEstado/' + ${estado.id}}"
                    class="btn btn-sm btn-outline-primary mr-1"
                    title="Editar">
@@ -77,10 +78,7 @@
                 <!-- Formulário para deletar -->
                 <form th:action="@{'/removerEstado/' + ${estado.id}}" method="post"
                       onsubmit="return confirm('Tem certeza que deseja remover este estado?');">
-
-                    <!-- Campo oculto para simular DELETE -->
                     <input type="hidden" name="_method" value="delete"/>
-
                     <button type="submit"
                             class="btn btn-sm btn-outline-danger"
                             title="Remover">
@@ -90,10 +88,11 @@
             </td>
         </tr>
         </tbody>
-
     </table>
 
-    <a class="btn btn-danger" href="/administrativo">Voltar</a>
+
+    <a class="btn btn-danger" href="/administrativo"><i class="fa-solid fa-rotate-left"></i> Voltar</a>
+    <a class="btn btn-primary" href="/cadastroEstado"><i class="fa-solid fa-plus"></i> Cadastrar</a>
 </div>
 
 <!-- JavaScript do Bootstrap -->
@@ -106,5 +105,20 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+
+    <script>
+        $(document).ready( function () {
+        $('#tabela').DataTable();
+        } );
+
+        var table = new DataTable('#tabela', {
+    language: {
+        url: '//cdn.datatables.net/plug-ins/2.2.2/i18n/pt-BR.json',
+    },
+});
+    </script>
 </body>
 </html>
