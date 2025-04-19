@@ -18,7 +18,7 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
 
-    <title>Lista de Estados</title>
+    <title>Lista de Produtos</title>
 </head>
 
 <body>
@@ -50,34 +50,46 @@
     </div>
 </nav>
 
-<div class="container mt-4">
+<div class="container-fluid">
 
     <table class="table" id="tabela">
         <thead>
         <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>Sigla</th>
-            <th>Ações</th>
+            <th>Cód. de Barras</th>
+            <th>Unid. Medida</th>
+            <th>Estoque</th>
+            <th>Preço Custo</th>
+            <th>Preço Venda</th>
+            <th>Lucro</th>
+            <th>Margem Lucro</th>
+            <th>Opções</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr th:each="estado : ${listarEstados}">
-            <td th:text="${estado.id}"></td>
-            <td th:text="${estado.nome}"></td>
-            <td th:text="${estado.sigla}"></td>
+        <tr th:each="produto : ${listarProdutos}">
+            <td th:text="${produto.id}"></td>
+            <td th:text="${produto.nome}"></td>
+            <td th:text="${produto.codigoBarras}"></td>
+            <td th:text="${produto.unidadeMedida}"></td>
+            <td th:text="${produto.estoque}"></td>
+            <td th:text="${produto.precoCusto}"></td>
+            <td th:text="${produto.precoVenda}"></td>
+            <td th:text="${produto.lucro}"></td>
+            <td th:text="${produto.margemLucro}"></td>
             <td class="d-flex gap-1">
                 <!-- Botão de editar -->
-                <a th:href="@{'/editarEstado/' + ${estado.id}}"
+                <a th:href="@{'/editarProduto/' + ${produto.id}}"
                    class="btn btn-sm btn-outline-primary mr-1"
                    title="Editar">
                     <i class="fas fa-pen-to-square"></i>
                 </a>
 
                 <!-- Formulário para deletar -->
-                <form th:action="@{'/removerEstado/' + ${estado.id}}" method="post"
-                      onsubmit="return confirm('Tem certeza que deseja remover este estado?');">
+                <form th:action="@{'/removerProduto/' + ${produto.id}}" method="post"
+                      onsubmit="return confirm('Tem certeza que deseja remover este produto?');">
                     <input type="hidden" name="_method" value="delete"/>
                     <button type="submit"
                             class="btn btn-sm btn-outline-danger"
@@ -92,7 +104,7 @@
 
 
     <a class="btn btn-danger" href="/administrativo"><i class="fa-solid fa-rotate-left"></i> Voltar</a>
-    <a class="btn btn-primary" href="/cadastroEstado"><i class="fa-solid fa-plus"></i> Cadastrar</a>
+    <a class="btn btn-primary" href="/cadastroProduto"><i class="fa-solid fa-plus"></i> Cadastrar</a>
 </div>
 
 <!-- JavaScript do Bootstrap -->
