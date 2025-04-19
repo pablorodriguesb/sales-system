@@ -18,14 +18,15 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
 
-    <title>Lista de Cidades</title>
+    <title>Lista de Funcionarios</title>
 </head>
 
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <img src="https://imagensemoldes.com.br/wp-content/uploads/2020/05/Logo-Lobo-PNG.png"
-         width="30" height="30" class="d-inline-block align-top" alt="">
+    <!-- Substituí o link quebrado da logo por um link funcional -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Wolf_icon.svg"
+         width="30" height="30" class="d-inline-block align-top" alt="Logo">
     <a class="navbar-brand" href="#">Sistema de Vendas</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#conteudoNavbarSuportado"
@@ -50,50 +51,60 @@
     </div>
 </nav>
 
-<div class="container mt-4">
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table class="table" id="tabela">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+                <th>Endereço</th>
+                <th>Numero</th>
+                <th>Bairro</th>
+                <th>E-mail</th>
+                <th>Função</th>
+                <th>Cidade</th>
+                <th>Ação</th>
+            </tr>
+            </thead>
 
-    <table class="table" id="tabela">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>CEP</th>
-            <th>Estado</th>
-            <th>Ações</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr th:each="cidade : ${listarCidades}">
-            <td th:text="${cidade.id}"></td>
-            <td th:text="${cidade.nome}"></td>
-            <td th:text="${cidade.cep}"></td>
-            <td th:text="${cidade.estado.nome}"></td>
-            <td class="d-flex gap-1">
-                <!-- Botão de editar -->
-                <a th:href="@{'/editarCidade/' + ${cidade.id}}"
-                   class="btn btn-sm btn-outline-primary mr-1"
-                   title="Editar">
-                    <i class="fas fa-pen-to-square"></i>
-                </a>
-
-                <!-- Formulário para deletar -->
-                <form th:action="@{'/removerCidade/' + ${cidade.id}}" method="post"
-                      onsubmit="return confirm('Tem certeza que deseja remover esta cidade?');">
-                    <input type="hidden" name="_method" value="delete"/>
-                    <button type="submit"
-                            class="btn btn-sm btn-outline-danger"
-                            title="Remover">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+            <tbody>
+            <tr th:each="funcionario : ${listarFuncionarios}">
+                <td th:text="${funcionario.id}"></td>
+                <td th:text="${funcionario.nome}"></td>
+                <td th:text="${funcionario.cpf}"></td>
+                <td th:text="${funcionario.telefone}"></td>
+                <td th:text="${funcionario.endereco}"></td>
+                <td th:text="${funcionario.numero}"></td>
+                <td th:text="${funcionario.bairro}"></td>
+                <td th:text="${funcionario.email}"></td>
+                <td th:text="${funcionario.funcao}"></td>
+                <td th:text="${funcionario.cidade.nome}"></td>
+                <td class="d-flex gap-1">
+                    <a th:href="@{'/editarFuncionario/' + ${funcionario.id}}"
+                       class="btn btn-sm btn-outline-primary mr-1"
+                       title="Editar">
+                        <i class="fas fa-pen-to-square"></i>
+                    </a>
+                    <form th:action="@{'/removerFuncionario/' + ${funcionario.id}}" method="post"
+                          onsubmit="return confirm('Tem certeza que deseja remover esta funcionario?');">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <button type="submit"
+                                class="btn btn-sm btn-outline-danger"
+                                title="Remover">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <a class="btn btn-danger" href="/administrativo"><i class="fa-solid fa-rotate-left"></i> Voltar</a>
-    <a class="btn btn-primary" href="/cadastroCidade"><i class="fa-solid fa-plus"></i> Cadastrar</a>
+    <a class="btn btn-primary" href="/cadastroFuncionario"><i class="fa-solid fa-plus"></i> Cadastrar</a>
 </div>
 
 <!-- JavaScript do Bootstrap -->

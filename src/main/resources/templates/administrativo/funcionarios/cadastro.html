@@ -15,7 +15,7 @@
           integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <title>Cadastro de Cidade</title>
+    <title>Cadastro de Funcionario</title>
 </head>
 
 <body>
@@ -48,25 +48,62 @@
 </nav>
 
 <div class="container mt-4">
-    <!-- Formulário de cadastro de Cidade -->
-    <form th:action="@{/salvarCidade}" th:object="${cidade}" method="post">
+    <!-- Formulário de cadastro de Funcionario -->
+    <form th:action="@{/salvarFuncionario}" th:object="${funcionario}" method="post">
         <div class="form-group">
-            <label for="id">ID:</label>
-            <input type="text" readonly class="form-control" id="id" th:field="*{id}"/>
+            <div class="form-row">
+                <div class="col-md-4">
+                    <label for="id">ID:</label>
+                    <input type="text" readonly class="form-control" id="id" th:field="*{id}" />
+                </div>
+                <div class="col-md-4">
+                    <label>Nome Funcionário:</label>
+                    <input type="text" required class="form-control" th:field="*{nome}" />
+                </div>
+                <div class="col-md-4">
+                    <label>CPF:</label>
+                    <input type="text" id="cpf" required class="form-control" th:field="*{cpf}" />
+                </div>
+            </div>
 
-            <label for="nome">Nome da Cidade:</label>
-            <input type="text" required class="form-control" id="nome" th:field="*{nome}"/>
+            <div class="form-row">
+                <div class="col-md-4">
+                    <label>Telefone:</label>
+                    <input type="text" id="telefone" required class="form-control" th:field="*{telefone}" />
+                </div>
+                <div class="col-md-4">
+                    <label>Endereço:</label>
+                    <input type="text" required class="form-control" th:field="*{endereco}" />
+                </div>
+                <div class="col-md-4">
+                    <label>Número:</label>
+                    <input type="text" required class="form-control" th:field="*{numero}" />
+                </div>
+            </div>
 
-            <label for="cep">CEP:</label>
-            <input type="text" required class="form-control" id="cep" th:field="*{cep}"/>
-
-            <label for="estado">Estado:</label>
-            <select th:field="*{estado}" class="form-control" id="estado">
-                <option value="">Selecione um estado</option>
-                <option th:each="est : ${listarEstados}"
-                        th:value="${est.id}"
-                        th:text="${est.nome}"></option>
-            </select>
+            <div class="form-row">
+                <div class="col-md-3">
+                    <label>Bairro:</label>
+                    <input type="text" required class="form-control" th:field="*{bairro}" />
+                </div>
+                <div class="col-md-3">
+                    <label>Email:</label>
+                    <input type="text" required class="form-control" th:field="*{email}" />
+                </div>
+                <div class="col-md-3">
+                    <label>Função:</label>
+                    <input type="text" required class="form-control" th:field="*{funcao}" />
+                </div>
+                <div class="col-md-3">
+                    <label for="cidade">Cidade:</label>
+                    <select th:field="*{cidade}" class="form-control" id="cidade">
+                        <option value="">Selecione uma cidade</option>
+                        <option th:each="est : ${listarCidades}"
+                                th:value="${est.id}"
+                                th:text="${est.nome}"></option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <button type="submit" class="btn btn-primary">
@@ -75,10 +112,12 @@
         <a class="btn btn-danger" href="/administrativo">
             <i class="fa-solid fa-rotate-left"></i> Voltar
         </a>
-        <a class="btn btn-success" href="/listarCidade">
+        <a class="btn btn-success" href="/listarFuncionario">
             <i class="fa-solid fa-list"></i> Listar
         </a>
     </form>
+
+
 </div>
 
 <!-- JavaScript do Bootstrap -->
@@ -96,7 +135,8 @@
 
 <script>
     $(document).ready(function(){
-  $('#cep').mask('99.999-999');
+  $('#cpf').mask('999.999.999-99');
+  $('#telefone').mask('(99) 9 9999-9999');
     });
 </script>
 </body>
