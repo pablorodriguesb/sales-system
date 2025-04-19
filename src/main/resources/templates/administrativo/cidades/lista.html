@@ -18,7 +18,7 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
 
-    <title>Lista de Estados</title>
+    <title>Lista de Cidades</title>
 </head>
 
 <body>
@@ -57,27 +57,29 @@
         <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>Sigla</th>
+            <th>CEP</th>
+            <th>Estado</th>
             <th>Ações</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr th:each="estado : ${listarEstados}">
-            <td th:text="${estado.id}">1</td>
-            <td th:text="${estado.nome}">Exemplo</td>
-            <td th:text="${estado.sigla}">XX</td>
+        <tr th:each="cidade : ${listarCidades}">
+            <td th:text="${cidade.id}"></td>
+            <td th:text="${cidade.nome}"></td>
+            <td th:text="${cidade.cep}"></td>
+            <td th:text="${cidade.estado.nome}"></td>
             <td class="d-flex gap-1">
                 <!-- Botão de editar -->
-                <a th:href="@{'/editarEstado/' + ${estado.id}}"
+                <a th:href="@{'/editarCidade/' + ${cidade.id}}"
                    class="btn btn-sm btn-outline-primary mr-1"
                    title="Editar">
                     <i class="fas fa-pen-to-square"></i>
                 </a>
 
                 <!-- Formulário para deletar -->
-                <form th:action="@{'/removerEstado/' + ${estado.id}}" method="post"
-                      onsubmit="return confirm('Tem certeza que deseja remover este estado?');">
+                <form th:action="@{'/removerCidade/' + ${cidade.id}}" method="post"
+                      onsubmit="return confirm('Tem certeza que deseja remover esta cidade?');">
                     <input type="hidden" name="_method" value="delete"/>
                     <button type="submit"
                             class="btn btn-sm btn-outline-danger"
@@ -90,9 +92,8 @@
         </tbody>
     </table>
 
-
     <a class="btn btn-danger" href="/administrativo"><i class="fa-solid fa-rotate-left"></i> Voltar</a>
-    <a class="btn btn-primary" href="/cadastroEstado"><i class="fa-solid fa-plus"></i> Cadastrar</a>
+    <a class="btn btn-primary" href="/cadastroCidade"><i class="fa-solid fa-plus"></i> Cadastrar</a>
 </div>
 
 <!-- JavaScript do Bootstrap -->
@@ -106,19 +107,19 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
 
-    <script>
-        $(document).ready( function () {
+<script>
+    $(document).ready(function () {
         $('#tabela').DataTable();
-        } );
+    });
 
-        var table = new DataTable('#tabela', {
-    language: {
-        url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
-    },
-});
-    </script>
+    var table = new DataTable('#tabela', {
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
+        },
+    });
+</script>
 </body>
 </html>

@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-br"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet"
@@ -13,16 +11,18 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+          integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <title>Cadastro de Estado</title>
+    <title>Cadastro de Cidade</title>
 </head>
 
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <img src="https://imagensemoldes.com.br/wp-content/uploads/2020/05/Logo-Lobo-PNG.png"
-         width="30" height="30" class="d-inline-block align-top" alt="">
+         width="30" height="30" class="d-inline-block align-top" alt="Logo">
     <a class="navbar-brand" href="#">Sistema de Vendas</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#conteudoNavbarSuportado"
@@ -48,28 +48,37 @@
 </nav>
 
 <div class="container mt-4">
-
-    <!-- Formulário de cadastro de estado -->
-    <form th:action="@{/salvarEstado}" th:object="${estado}" method="POST">
-        <!-- Token CSRF -->
-        <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
--->
+    <!-- Formulário de cadastro de Cidade -->
+    <form th:action="@{/salvarCidade}" th:object="${cidade}" method="post">
         <div class="form-group">
             <label for="id">ID:</label>
-            <input type="text" readonly class="form-control" id="id" th:field="*{id}">
+            <input type="text" readonly class="form-control" id="id" th:field="*{id}"/>
 
-            <label for="nome">Nome do Estado:</label>
-            <input type="text" class="form-control" id="nome" th:field="*{nome}">
+            <label for="nome">Nome da Cidade:</label>
+            <input type="text" required class="form-control" id="nome" th:field="*{nome}"/>
 
-            <label for="sigla">Sigla do Estado:</label>
-            <input type="text" class="form-control" id="sigla" th:field="*{sigla}">
+            <label for="cep">CEP:</label>
+            <input type="text" required class="form-control" id="cep" th:field="*{cep}"/>
+
+            <label for="estado">Estado:</label>
+            <select th:field="*{estado}" class="form-control" id="estado">
+                <option value="">Selecione um estado</option>
+                <option th:each="est : ${listarEstados}"
+                        th:value="${est.id}"
+                        th:text="${est.nome}"></option>
+            </select>
         </div>
 
-        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
-        <a class="btn btn-danger" href="/administrativo"><i class="fa-solid fa-rotate-left"></i> Voltar</a>
-        <a class="btn btn-success" href="/listarEstado"><i class="fa-solid fa-list"></i> Listar</a>
+        <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-floppy-disk"></i> Salvar
+        </button>
+        <a class="btn btn-danger" href="/administrativo">
+            <i class="fa-solid fa-rotate-left"></i> Voltar
+        </a>
+        <a class="btn btn-success" href="/listarCidade">
+            <i class="fa-solid fa-list"></i> Listar
+        </a>
     </form>
-
 </div>
 
 <!-- JavaScript do Bootstrap -->
@@ -82,5 +91,13 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    $(document).ready(function(){
+  $('#cep').mask('99.999-999');
+    });
+</script>
 </body>
 </html>
