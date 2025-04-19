@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -27,9 +28,10 @@ public class EstadoController {
 
     @GetMapping("/listarEstado")
     public ModelAndView listar() {
-         ModelAndView mv = new ModelAndView("administrativo/estados/lista");
-         mv.addObject("listaEstados", estadoRepository.findAll());
-         return mv;
+        List<Estado> estados = estadoRepository.findAll();
+        ModelAndView mv = new ModelAndView("administrativo/estados/lista");
+        mv.addObject("listarEstados", estados);
+        return mv;
     }
 
     @GetMapping("/editarEstado/{id}")
@@ -38,13 +40,12 @@ public class EstadoController {
         return cadastrar(estado.get());
     }
 
-    @GetMapping("/removerEstado/{id}")
+    @PostMapping("/removerEstado/{id}")
     public ModelAndView remover(@PathVariable("id") Long id) {
         Optional<Estado> estado = estadoRepository.findById(id);
         estadoRepository.delete(estado.get());
         return listar();
     }
-
 
     @PostMapping("/salvarEstado")
     public ModelAndView salvar(Estado estado, BindingResult result) {
